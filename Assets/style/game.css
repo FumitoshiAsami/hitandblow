@@ -1,0 +1,410 @@
+/* 画面遷移 */
+.inactive{
+    display: none;
+}
+
+.active{
+    display: block;
+}
+
+/* 画面サイズ */
+#ttl,#main{
+    width: 400px;
+    height: 800px;
+    position: relative;
+}
+
+/* タイトル */
+#ttl{
+    background-image: linear-gradient( rgba(65, 164, 253, 1), rgba(14, 244, 255, 1));
+}
+
+
+.logo{
+     text-align: center;
+     padding-top: 180px;
+     animation: logoAnime 2s infinite;
+}
+
+@keyframes logoAnime{
+    0% {
+      transform: scale(1);
+    }
+
+    50%{
+        transform: scale(1.05);
+    }
+
+    100%{
+        transform: scale(1);
+    }
+  
+  }
+
+.start-btn{
+    width: 300px;
+    line-height: 60px;
+    background-color: rgb(209, 20, 20);
+    color: #fff;
+    font-weight: bold;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 22px;
+    border-radius: 100vh;
+    cursor: pointer;
+    border: 4px solid #000;
+    box-shadow: 3px 3px 0 0 #000;
+    margin-top: 220px;
+}
+
+
+.howtoplay-inactive{
+    display: none;
+}
+.howtoplay-active{
+    display: block;
+    animation: howtoplayactive 1s;
+}
+
+.howtoplay{
+    position: absolute;
+    width: 350px;
+    height: 450px;
+    background-image: url(../img/howto.png);
+    border: 4px solid #000;
+    box-shadow: 3px 3px 0 0 #000;
+    border-radius: 20px;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    padding: 5px;
+    z-index: 999;
+}
+
+
+.close-area{
+    position: absolute;
+    width: 400px;
+    height: 800px;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    background-color: #000000;
+    opacity: 0.5;
+}
+
+@keyframes howtoplayactive{
+    0% {
+      opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
+
+
+
+
+.func{
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.func-btn{
+    font-size: 40px;
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    background-color: rgb(83, 186, 206);
+    border: 4px solid #000;
+    box-shadow: 2px 2px 0 0 #000;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 25px;
+    text-align: center;
+}
+
+
+
+/* メイン */
+#main{
+    background-color: rgb(183, 251, 255);
+}
+
+
+.Num{
+    display: flex;
+}
+.playernum,.comnum{
+    width: 200px;
+    height: 150px;
+}
+.playernum{
+    background-color: #5281c7;
+}
+.comnum{
+    background-color: #a52a2a;
+}
+
+
+.who{
+ display: flex;
+}
+
+.who span{
+    line-height: 70px;
+    color: #fff;
+
+}
+
+.icon{
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: #fff;
+    border: 4px solid #000;
+    box-shadow: 3px 3px 0 0 #000;
+    margin: 5px;
+    overflow: hidden;
+}
+
+
+
+.num{
+    width: 150px;
+    height: 50px;
+    background-color: #fff;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    font-size: 38px;
+    font-weight: bold;
+    border: 4px solid #000;
+    box-shadow: 3px 3px 0 0 #000;
+}
+
+
+
+.Table{
+    display: flex;
+    margin-top: 15px;
+}
+
+.playertable,.comtable{
+    width: 200px;
+}
+
+table{
+    border-collapse:collapse;
+    width: 100%;
+  }
+  
+table th,table td{
+    text-align: center;
+    height: 28px;
+  }
+
+/* playerテーブル */
+#player-table th{
+    background-color: #5281c7;
+    color: white;
+    border:solid 1px #414892;
+}
+  
+#player-table td{
+    background-color: #bcc3e4;
+    border:solid 1px #8589af;
+}
+/* comテーブル */
+#com-table th{
+    background-color: #a52a2a;;
+    color: white;
+    border:solid 1px #6b1a1a;
+}
+  
+#com-table td{
+    background-color: #d78986;
+    border:solid 1px #6b1a1a;
+}
+
+
+
+/* タイマー */
+.timer{
+    background-color: rgb(255, 255, 255);
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 100vh;
+    border: 4px solid #000;
+    box-shadow: 3px 3px 0 0 #000;
+    position: absolute;
+    top:553px;
+    left: 10px;
+}
+.time{
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 50px;
+}
+
+/* メッセージ */
+.msg{
+    color: red;
+    font-weight: bold;
+    font-size: 22px;
+    text-align: center;
+}
+
+
+/* keypad */
+
+.keypad{
+    position: absolute;
+    bottom: 0;
+    width: 400px;
+    height: 250px;
+}
+
+
+.num-view{
+    margin: 3px auto;
+    width: 150px;
+    height: 50px;
+    background-color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    font-size:35px;
+    font-weight: bold;
+    border: 4px solid #000;
+    box-shadow: 3px 3px 0 0 #000;
+}
+
+.num-keys{
+    display: flex;
+}
+.func-keys{
+    display: flex;
+}
+
+
+.key,.clr,.ok,.bs{
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    border-radius: 8px;
+    border: 2px solid #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    height: 50px;
+    margin: 3px;
+    background-color: #4b4b4b;
+    box-shadow: 2px 2px 0 0 #000;
+}
+
+
+.ok{
+    background-color: #a90101;
+}
+
+
+
+.buttons-disabled{
+    opacity: 0.5;
+}
+
+.buttons-enabled{
+    animation: buttonsanimeE 0.5s;
+    opacity: 1;
+}
+
+@keyframes buttonsanimeE{
+    0% {
+      opacity: 0.5;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
+
+
+
+
+/* msg系 */
+.msg0,.msg1,.msg2{
+    position: absolute;
+    top: 69%;
+    left: 50%;
+    transform: translate(-50%,-69%);
+    background-repeat: no-repeat;
+    width: 400px;
+    height: 100px;
+    animation: attanime 2s infinite;
+}
+
+.msg0{
+    background-image: url(../img/msg-0.png);
+}
+.msg1{
+    background-image: url(../img/msg-1.png);
+}
+.msg2{
+    background-image: url(../img/msg-2.png);
+}
+
+.msginactive{
+    display: none;
+}
+
+@keyframes attanime{
+    0% {
+      opacity: 1;
+    }
+
+    50%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
+
+.win,.lose,.draw{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-repeat: no-repeat;
+    width: 400px;
+    height: 200px;
+    display: block;
+    animation: endsanime 2s;
+}
+
+.win{
+    background-image: url(../img/msg-win.png);
+}
+
+.lose{
+    background-image: url(../img/msg-lose.png);
+}
+.draw{
+    background-image: url(../img/msg-draw.png);
+}
+
+@keyframes endsanime{
+    0% {
+        opacity: 0;
+        top:60%;
+    }
+
+    100%{
+        opacity: 1;
+        top:50%;
+    }
+}
