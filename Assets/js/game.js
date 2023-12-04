@@ -318,16 +318,17 @@ function playerturn(){
 
 //comの数字を生成
 function comRandom() {
-    var array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-    var result = [];
-  
+    var randomcom =[];
     for (var i = 0; i < 3; i++){//3回ループ
-        var length = array.length;//array配列の長さ
-        var rand = Math.floor(Math.random()*length);//小数点以下切り捨てarray配列の長さ分の乱数
-        result.push(array[rand]);//result配列に入れる
-        array.splice(rand,1);//array配列から取り出されたのは削除
+      while(true){
+        var r = Math.floor(Math.random() * 10)//0から9まで
+        if(randomcom.includes(r) == false){//含まれてなかったら
+          randomcom.push(r);//配列に入れる
+          break;//ループ抜ける
+        }
+      }
     }
-    return result;
+    return randomcom;
   
 }
 
