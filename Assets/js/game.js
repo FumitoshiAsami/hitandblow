@@ -87,19 +87,39 @@ var targetnumbers = [[0,1,2],[0,1,3],[0,1,4],[0,1,5],[0,1,6],[0,1,7],[0,1,8],[0,
 var historychallenge = [];
 var historyhit = [];
 
+
+//hitblow算出処理
+var response = {hit: null, blow: null};//結果用の配列
+
+function responsecheck(secret,yoso){
+  var HIT = 0;
+  var BLOW = 0;
+  for (var i = 0; i < 3; i++){//3回ループ
+    if(secret[i]===yoso[i]){
+      HIT++;
+    }else if(secret.includes(yoso[i])){
+      BLOW++;
+    }
+  }
+  response.hit = HIT;
+  response.blow = BLOW;
+}
+
+
+//候補の中からランダムに数字を選択する。ただし2回目以降は一回質問したものは選ばない
 var index;
 var selectednum;
 
 function select_candidate_number(){
   //1回目
   if (count_com == 1){
-    index = targetRandom((targetnumbers.length)-1);
+    index = targetRandom(targetnumbers.length);
     selectednum = targetnumbers[index];
     return selectednum;
   //2回目以降
   }else{
     while(true){
-      index = targetRandom((targetnumbers.length)-1);
+      index = targetRandom(targetnumbers.length);
       selectednum = targetnumbers[index];
 
       if(historychallenge.includes(selectednum)){
@@ -111,6 +131,7 @@ function select_candidate_number(){
   }
 }
 
+//候補のチェック
 function answerCheck(table_number, target_number, H, B){
   var check_H = 0;
   var check_B = 0;
@@ -149,8 +170,6 @@ function start(){
 
 }
 
-
-
 function playernumset(){
   timerstop();
 
@@ -171,7 +190,6 @@ function playernumset(){
 
 }
 
-
 var count_com = 0;//カウント
 
 function comturn(){
@@ -185,37 +203,27 @@ function comturn(){
   var comyoso = [];
   comyoso = select_candidate_number();//数字予想（ランダムに候補から選ぶ）
 
-  //hitblow判定処理
-  var hit = 0;
-  var blow = 0;
-
-  for (var i = 0; i < 3; i++){
-    if(playersecret[i]===comyoso[i]){
-      hit++;
-    }else if(playersecret.includes(comyoso[i])){
-      blow++;
-    }
-  }
-
-
-  //履歴配列に予想を追加
-  historychallenge.push(comyoso);
-  historyhit.push(hit);
-
-  //表示
-  com_table.rows[count_com].cells[0].innerHTML = comyoso.join("");
-  com_table.rows[count_com].cells[1].innerHTML = hit+" "+blow;
-
+  //hitblow算出処理
+  responsecheck(playersecret,comyoso);
 
   //候補の再生成をする
   var newtargetnumbers = [];
   for (var i = 0; i < targetnumbers.length; i++) {
-      if (answerCheck(targetnumbers[i], comyoso, hit, blow)) {
+      if (answerCheck(targetnumbers[i], comyoso, response.hit, response.blow)) {
           // 新しい候補の数を追加
           newtargetnumbers.push(targetnumbers[i]);
       }
   }
   targetnumbers = newtargetnumbers;//更新
+
+
+  //履歴配列に予想を追加
+  historychallenge.push(comyoso);
+  historyhit.push(response.hit);
+
+  //表示
+  com_table.rows[count_com].cells[0].innerHTML = comyoso.join("");
+  com_table.rows[count_com].cells[1].innerHTML = response.hit+" "+response.blow;
 
 
   playerthinking();
@@ -232,38 +240,27 @@ function playerturn(){
 
     count_player++;//カウントアップ
 
-    //hitblow判定処理
-    var hit = 0;
-    var blow = 0;
-    
-    for (var i = 0; i < 3; i++){//3回ループ
-      if(comsecret[i]===inputarray[i]){
-        hit++;
-      }else if(comsecret.includes(inputarray[i])){
-        blow++;
-      }
-    }
+    //hitblow算出処理
+    responsecheck(comsecret,inputarray);
     
     //table表示
     player_table.rows[count_player].cells[0].innerHTML = inputarray.join("");
-    player_table.rows[count_player].cells[1].innerHTML = hit+" "+blow;
-    
-
+    player_table.rows[count_player].cells[1].innerHTML = response.hit+" "+response.blow;
   
     //勝敗判定
-    if(historyhit[(count_com)-1] == 3 && hit>=3){
+    if(historyhit[(count_com)-1] == 3 && response.hit>=3){
       draw();
       return;
-    }else if(historyhit[(count_com)-1] == 3 && hit!=3){
+    }else if(historyhit[(count_com)-1] == 3 && response.hit!=3){
       lose();
       return;
-    }else if (hit>=3){
+    }else if (response.hit>=3){
       win();
       return;
-    }else if (count_player==10 && historyhit[(count_com)-1] == 3 && hit!=3){
+    }else if (count_player==10 && historyhit[(count_com)-1] == 3 && response.hit!=3){
       lose();
       return;
-    }else if (count_player==10 && hit!=3){
+    }else if (count_player==10 && response.hit!=3){
       draw();
       return;
     }else if (count_player==10){
@@ -334,10 +331,9 @@ function comRandom() {
   
 }
 
-
-//0~arraylenのランダム数字生成
+//0~(arraylen-1)までのランダム数字生成 arraylenが720だったら場合、0~719(計720))になる。
 function targetRandom(arraylen) {
-  var random = Math.floor( Math.random() * (arraylen + 1 - 0) ) + 0;
+  var random = Math.floor(Math.random() * arraylen)
   return random;
 }
 

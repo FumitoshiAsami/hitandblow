@@ -105,7 +105,7 @@ document.addEventListener('keydown', function(e) {
 function validation(inputkey){
     if(inputarray.length===3){
         msgshow("入力できるのは3桁までです");
-    }else if(inputarray.includes(inputkey)===true){
+    }else if(inputarray.includes(inputkey)){
         msgshow("既に入力済です");
     }else{
         inputarray.push(inputkey);//配列に入れる
